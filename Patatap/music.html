@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Circles</title>
     <script type="text/javascript" src="paper/paperjs-v0.12.0/dist/paper-full.js"></script>
-    <link rel="stylesheet" type="text/css" href="circles.css">
+    <link rel="stylesheet" type="text/css" href="music.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.js"></script>
     <script type="text/paperscript" canvas="myCanvas">
 
@@ -167,30 +167,57 @@
     	}
     }
 
-    var circles = [];
+	var circles = [];
+	var rect = [];
 
     function onKeyDown(event) {
       if(keyData[event.key]){
-        var max = new Point(view.size.width, view.size.height);
-        var random = Point.random();
-        var point = max * random;
-        var newCircle = new Path.Circle(point,500);
-        newCircle.fillColor = keyData[event.key].color;
-        keyData[event.key].sound.play();
-        circles.push(newCircle);
+		var max = new Point(view.size.width, view.size.height);
+		var random = Point.random();
+		var point = max * random; 
+
+		var random2 = Point.random();
+		var point3 = max * random2;
+		var newX = point3.x + 100;
+		var newY = point3.y + 100;
+		var point2 = new Point(newX, newY);
+
+		//var newCircle = new Path.Circle(point,500);
+		var rectangle = new Rectangle(point, point2);
+		var radius = new Size(40, 40);
+		var newRectangle = new Path.Rectangle(rectangle, radius);
+
+		//newCircle.fillColor = keyData[event.key].color;
+		newRectangle.fillColor = keyData[event.key].color;
+
+		keyData[event.key].sound.play();
+
+		//circles.push(newCircle);
+		rect.push(newRectangle);
       }
     }
 
     function onFrame(event){
-      for(var i=0; i<circles.length; i++){
-        circles[i].fillColor.hue += 1;
-        circles[i].scale(.9);
-        if(circles[i].area<1){
-          circles[i].remove();
-          circles.splice(i,1);
-          console.log(circles);
-        }
-      }
+      //for(var i=0; i<circles.length; i++){
+		//circles[i].fillColor.hue += 1;
+		//circles[i].scale(.9);
+        //if(circles[i].area<1){
+        //  circles[i].remove();
+        //  circles.splice(i,1);
+		//  console.log(circles);
+		//  console.log("Circles")
+		//}
+	  //}
+	  for(var i=0; i<rect.length; i++){
+		rect[i].fillColor.hue += 1;
+		rect[i].scale(.9);
+		if(rect[i].area<1){
+			rect[i].remove();
+			rect.splice(i,1);
+			console.log(rect);
+			console.log("rect");
+		}
+	  }
     }
 
     </script>
